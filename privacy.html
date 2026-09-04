@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#3f1025">
+  <meta name="description" content="PalPanel 隐私政策：了解应用如何处理本地设备配置、蓝牙与订阅信息。">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <title>隐私政策 · PalPanel</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #fcfcfc;
+      --ink-soft: rgba(237, 221, 224, 0.88);
+      --ink-muted: rgba(237, 221, 224, 0.68);
+      --glass: rgba(15, 6, 12, 0.38);
+      --glass-strong: rgba(15, 6, 12, 0.58);
+      --line: rgba(255, 255, 255, 0.18);
+      --line-soft: rgba(255, 255, 255, 0.11);
+      --accent: #f0d7c9;
+      --accent-ink: #3f1025;
+      --radius-large: 22px;
+      --radius-medium: 16px;
+      --display: "Avenir Next", "SF Pro Display", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+      --body: "SF Pro Text", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      min-width: 320px;
+      background: #120d14;
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      color: var(--ink);
+      font-family: var(--body);
+      font-size: 15px;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      position: fixed;
+      z-index: -1;
+      inset: 0;
+      content: "";
+      background:
+        radial-gradient(120% 85% at 12% 96%, rgba(188, 91, 21, 0.85), transparent 55%),
+        radial-gradient(95% 75% at 88% 55%, rgba(114, 28, 66, 0.85), transparent 62%),
+        linear-gradient(205deg, #120d14, #400f26 52%, #822b2a);
+    }
+
+    a { color: inherit; }
+
+    button, a { -webkit-tap-highlight-color: transparent; }
+
+    button { font: inherit; }
+
+    [hidden] { display: none !important; }
+
+    .skip-link {
+      position: fixed;
+      z-index: 20;
+      top: 10px;
+      left: 10px;
+      padding: 8px 12px;
+      border-radius: 10px;
+      color: var(--accent-ink);
+      background: var(--ink);
+      transform: translateY(-160%);
+    }
+
+    .skip-link:focus { transform: translateY(0); }
+
+    .site-header {
+      position: sticky;
+      z-index: 10;
+      top: 0;
+      padding-top: env(safe-area-inset-top);
+      border-bottom: 1px solid transparent;
+      background: linear-gradient(to bottom, rgba(18, 13, 20, 0.78), rgba(18, 13, 20, 0.42));
+      backdrop-filter: blur(18px) saturate(130%);
+      -webkit-backdrop-filter: blur(18px) saturate(130%);
+    }
+
+    .header-inner,
+    main {
+      width: min(calc(100% - 40px), 760px);
+      margin-inline: auto;
+    }
+
+    .header-inner {
+      display: flex;
+      min-height: 70px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      color: var(--ink);
+      font-family: var(--display);
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      overflow: hidden;
+      flex: none;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 11px;
+      box-shadow: 0 8px 20px rgba(17, 5, 12, 0.3);
+    }
+
+    .brand-mark svg { display: block; width: 100%; height: 100%; }
+
+    .language-switch {
+      display: inline-flex;
+      padding: 3px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .language-switch button {
+      min-width: 47px;
+      min-height: 34px;
+      padding: 5px 12px;
+      border: 0;
+      border-radius: 999px;
+      color: var(--ink-muted);
+      background: transparent;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .language-switch button[aria-pressed="true"] {
+      color: var(--accent-ink);
+      background: var(--ink);
+      box-shadow: 0 3px 12px rgba(16, 6, 12, 0.22);
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--ink);
+      outline-offset: 3px;
+    }
+
+    main { padding: 58px 0 72px; }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2 { font-family: var(--display); }
+
+    h1 {
+      max-width: 12ch;
+      margin: 0;
+      font-size: clamp(36px, 7vw, 58px);
+      line-height: 1.12;
+      letter-spacing: -0.04em;
+    }
+
+    .lede {
+      max-width: 610px;
+      margin: 18px 0 0;
+      color: var(--ink-soft);
+      font-size: 16px;
+      line-height: 1.75;
+    }
+
+    .document-nav {
+      display: flex;
+      width: fit-content;
+      max-width: 100%;
+      gap: 4px;
+      margin-top: 28px;
+      padding: 4px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 30px rgba(16, 6, 12, 0.18);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .document-nav a,
+    .document-nav span[aria-current="page"] {
+      display: inline-flex;
+      min-height: 38px;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.2;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .document-nav a { color: var(--ink-soft); }
+
+    .document-nav a:hover { background: rgba(255, 255, 255, 0.1); }
+
+    .document-nav span[aria-current="page"] {
+      color: var(--accent-ink);
+      background: var(--ink);
+    }
+
+    .summary {
+      margin: 42px 0 10px;
+      padding: 20px 22px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-large);
+      color: var(--ink-soft);
+      background: var(--glass);
+      box-shadow: 0 12px 34px rgba(16, 6, 12, 0.22);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .summary strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--ink);
+      font-family: var(--display);
+      font-size: 15px;
+    }
+
+    .document { margin-top: 10px; }
+
+    .document section {
+      padding: 27px 2px 28px;
+      border-top: 1px solid var(--line-soft);
+    }
+
+    .document h2 {
+      margin: 0 0 9px;
+      color: #f9f5f0;
+      font-size: 18px;
+      line-height: 1.5;
+      letter-spacing: -0.015em;
+    }
+
+    .document p,
+    .document ul { margin: 0; color: var(--ink-soft); }
+
+    .document p + p,
+    .document p + ul,
+    .document ul + p { margin-top: 10px; }
+
+    .document ul { padding-left: 1.3em; }
+
+    .document li + li { margin-top: 6px; }
+
+    .document a {
+      color: var(--ink);
+      text-decoration-color: rgba(255, 255, 255, 0.42);
+      text-underline-offset: 3px;
+    }
+
+    .document a:hover { text-decoration-color: currentColor; }
+
+    @media (max-width: 520px) {
+      .header-inner,
+      main { width: min(calc(100% - 36px), 760px); }
+
+      .header-inner { min-height: 66px; }
+
+      main { padding-top: 42px; }
+
+      .brand-mark { width: 36px; height: 36px; }
+
+      .language-switch button { min-width: 44px; padding-inline: 10px; }
+
+      .document-nav { width: 100%; }
+
+      .document-nav a,
+      .document-nav span[aria-current="page"] { flex: 1; padding-inline: 12px; }
+
+      .summary { margin-top: 34px; padding: 18px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+
+    @media print {
+      :root { color-scheme: light; }
+      body { color: #171217; background: #fff; font-size: 11pt; }
+      body::before, .site-header, .document-nav { display: none; }
+      main { width: 100%; }
+      main { padding: 0; }
+      .eyebrow, h1, .summary strong, .document h2, .document a { color: #171217; }
+      .lede, .summary, .document p, .document ul { color: #484148; }
+      .summary { border-color: #d8d2d6; box-shadow: none; }
+      .document section { break-inside: avoid; border-color: #ded8dc; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#content">跳至正文 / Skip to content</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="./" aria-label="PalPanel">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 64 64" role="img">
+            <defs>
+              <linearGradient id="brand-bg" x1="1" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#24111d"/>
+                <stop offset="0.52" stop-color="#5e1732"/>
+                <stop offset="1" stop-color="#b45022"/>
+              </linearGradient>
+            </defs>
+            <rect width="64" height="64" fill="url(#brand-bg)"/>
+            <g transform="rotate(-14 28 34)">
+              <rect x="18" y="16" width="18" height="34" rx="9" fill="#fff"/>
+              <circle cx="27" cy="25" r="2.8" fill="#4a1428"/>
+              <path d="M24 33h6M24 38h6" stroke="#8f7280" stroke-width="2.5" stroke-linecap="round"/>
+            </g>
+            <path d="M42 23a13 13 0 0 1 0 17M49 18a21 21 0 0 1 0 27" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="3.5"/>
+          </svg>
+        </span>
+        <span>PalPanel</span>
+      </a>
+
+      <div class="language-switch" role="group" aria-label="语言 / Language">
+        <button type="button" data-language="zh" aria-pressed="true">中文</button>
+        <button type="button" data-language="en" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="content">
+    <div class="locale-content" data-locale="zh">
+      <p class="eyebrow">PalPanel · 法律文件</p>
+      <h1>隐私政策</h1>
+      <p class="lede">我们把隐私设计成产品的一部分：遥控器、房间和面板配置主要保存在你的设备本地，不用于广告，也不会被出售。</p>
+    </div>
+
+    <div class="locale-content" data-locale="en" hidden>
+      <p class="eyebrow">PalPanel · Legal</p>
+      <h1>Privacy Policy</h1>
+      <p class="lede">Privacy is part of the product: your remotes, rooms, and panel settings are primarily stored on your device, are not used for advertising, and are never sold.</p>
+    </div>
+
+    <nav class="document-nav" aria-label="法律文件">
+      <a href="terms.html?lang=zh" data-document-link="terms">
+        <span data-locale="zh">使用条款</span>
+        <span data-locale="en" hidden>Terms</span>
+      </a>
+      <span aria-current="page">
+        <span data-locale="zh">隐私政策</span>
+        <span data-locale="en" hidden>Privacy</span>
+      </span>
+    </nav>
+
+    <div class="locale-content" data-locale="zh">
+      <aside class="summary">
+        <strong>简要说明</strong>
+        PalPanel 不设用户账号，不接入广告或跨应用追踪。设备与房间配置保存在本机；应用仅在启动资格校验、App Store 订阅及你主动打开外部链接时使用网络服务。
+      </aside>
+
+      <article class="document">
+        <section>
+          <h2>1. 适用范围</h2>
+          <p>本政策说明 PalPanel 开发者（以下简称“我们”）在你使用 PalPanel 移动应用及本政策页面时如何处理信息。第三方网站、应用商店或设备厂商的服务由其各自的隐私政策约束。</p>
+        </section>
+
+        <section>
+          <h2>2. 保存在你设备上的信息</h2>
+          <p>为了呈现和恢复你的遥控面板，PalPanel 会在本机保存：</p>
+          <ul>
+            <li>设备名称、设备类型、品牌、房间名称及红外码组选择；</li>
+            <li>遥控面板状态与偏好，例如空调温度、模式、风速以及面板外观；</li>
+            <li>你是否已同意协议、是否已完成新手引导等应用状态。</li>
+          </ul>
+          <p>这些配置不会上传到我们的服务器。你可以在应用内删除设备或房间；卸载应用会移除应用保存在本机的数据，但操作系统或你的设备备份可能按其自身设置保留副本。</p>
+        </section>
+
+        <section>
+          <h2>3. 网络与系统信息</h2>
+          <p>应用启动时会检查网络连接，并向资格校验服务发出请求，以判断当前版本的服务可用性。该服务可能按互联网服务的正常方式接收到你的 IP 地址、请求时间及基础网络日志；请求不会携带你的设备名称、房间、红外码组或蓝牙扫描结果。</p>
+          <p>当你查看或购买 Premium 时，Apple App Store / StoreKit 可能向应用返回商店国家或地区、优惠资格、商品信息、订阅状态与到期时间，以及完成交易所需的结果。支付卡号、账单地址等付款资料由应用商店处理，我们无法访问。</p>
+          <p>当你访问本政策页面时，托管服务可能接收 IP 地址、浏览器类型、请求路径与访问时间等标准访问日志。本页面不设置 Cookie，不使用本地存储，也不加载第三方广告或分析工具。</p>
+        </section>
+
+        <section>
+          <h2>4. 蓝牙权限与附近设备</h2>
+          <p>PalPanel 使用蓝牙扫描并连接兼容的红外发射器外设，然后把你点按的遥控指令发送给该外设。扫描期间，应用会处理外设标识、广播名称和信号强度。这些信息仅用于发现、连接和显示连接状态，不会上传给我们。你可以随时在系统设置中撤回蓝牙权限，但遥控指令将无法发送。</p>
+        </section>
+
+        <section>
+          <h2>5. 我们如何使用信息</h2>
+          <p>我们仅在下列目的所需范围内处理信息：</p>
+          <ul>
+            <li>提供遥控面板、房间管理、蓝牙连接和本地恢复功能；</li>
+            <li>确认 Premium 商品、试用资格和订阅权益；</li>
+            <li>维持服务可用性、安全性并排查网络故障；</li>
+            <li>履行适用法律、监管要求或响应合法请求。</li>
+          </ul>
+          <p>我们不出售个人信息，不将信息用于定向广告，也不使用广告标识符进行跨应用或跨网站追踪。</p>
+        </section>
+
+        <section>
+          <h2>6. 服务提供方与信息披露</h2>
+          <p>为提供上述功能，有限的信息可能由以下服务处理：</p>
+          <ul>
+            <li>Apple App Store / StoreKit：提供商品、试用资格、购买、续订、恢复购买和退款服务；</li>
+            <li>网络基础设施服务提供方：承载启动资格校验并生成必要的安全与运行日志；</li>
+            <li>你主动选择的外部服务：例如外设购买链接、系统分享面板或应用商店评分页。</li>
+          </ul>
+          <p>对于代表我们处理信息的服务提供方，我们要求其仅按约定目的处理信息，并提供不低于本政策及适用法律要求的保护。我们也可能在法律要求、保护用户或公众安全，或处理权利主张所必需时披露信息。除这些情况外，我们不会向第三方提供你的信息用于其独立营销。</p>
+        </section>
+
+        <section>
+          <h2>7. 保存期限与删除</h2>
+          <p>本地配置会保留到你在应用内删除相关内容或卸载应用。订阅记录按 Apple 的政策保留。资格校验服务的基础日志仅在保障安全、诊断故障和满足法律义务所需的期限内保留，之后删除或去标识化。</p>
+        </section>
+
+        <section>
+          <h2>8. 政策更新</h2>
+          <p>我们可能因产品、法律或运营变化更新本政策。重大变更会通过应用内提示或其他适当方式告知，并在本页同步更新相关内容。继续使用前，请查看最新版本。</p>
+        </section>
+
+      </article>
+    </div>
+
+    <div class="locale-content" data-locale="en" hidden>
+      <aside class="summary">
+        <strong>At a glance</strong>
+        PalPanel has no user accounts and includes no advertising or cross-app tracking. Device and room settings stay on your device. Network services are used only for launch eligibility checks, App Store subscriptions, and external links you choose to open.
+      </aside>
+
+      <article class="document">
+        <section>
+          <h2>1. Scope</h2>
+          <p>This policy explains how the developer of PalPanel ("we", "us", or "our") handles information when you use the PalPanel mobile app and this policy page. Third-party websites, app stores, and device manufacturers are governed by their own privacy policies.</p>
+        </section>
+
+        <section>
+          <h2>2. Information stored on your device</h2>
+          <p>To display and restore your remote-control panels, PalPanel stores the following locally:</p>
+          <ul>
+            <li>device names and types, brands, room names, and IR code-set selections;</li>
+            <li>panel states and preferences, such as temperature, mode, fan speed, and panel appearance; and</li>
+            <li>app state, such as whether you accepted the agreements or completed onboarding.</li>
+          </ul>
+          <p>These settings are not uploaded to our servers. You can delete devices or rooms in the app. Uninstalling the app removes its local data, although your operating system or device backup may retain a copy according to your settings.</p>
+        </section>
+
+        <section>
+          <h2>3. Network and system information</h2>
+          <p>At launch, the app checks network connectivity and contacts an eligibility service to determine service availability for the current version. As is normal for internet services, that service may receive your IP address, request time, and basic network logs. The request does not include your device names, rooms, IR code sets, or Bluetooth scan results.</p>
+          <p>When you view or purchase Premium, Apple App Store / StoreKit may return storefront country or region, offer eligibility, product information, subscription status and expiry, and results needed to complete a transaction. The app store processes payment-card details and billing addresses; we cannot access them.</p>
+          <p>When you visit this policy page, its hosting service may receive standard access logs such as IP address, browser type, requested path, and access time. This page does not set cookies, use local storage, or load third-party advertising or analytics.</p>
+        </section>
+
+        <section>
+          <h2>4. Bluetooth and nearby devices</h2>
+          <p>PalPanel uses Bluetooth to scan for and connect to a compatible IR blaster, then sends the remote commands you select to that accessory. During scanning, the app handles the accessory identifier, advertised name, and signal strength. This information is used only for discovery, connection, and connection status, and is not uploaded to us. You may revoke Bluetooth permission in system settings, but remote commands will no longer work.</p>
+        </section>
+
+        <section>
+          <h2>5. How we use information</h2>
+          <p>We process information only as needed to:</p>
+          <ul>
+            <li>provide remote panels, room management, Bluetooth connection, and local restoration;</li>
+            <li>confirm Premium products, trial eligibility, and subscription access;</li>
+            <li>maintain service availability and security and diagnose network failures; and</li>
+            <li>comply with applicable law, regulatory duties, or valid legal requests.</li>
+          </ul>
+          <p>We do not sell personal information, use it for targeted advertising, or use advertising identifiers to track you across apps or websites.</p>
+        </section>
+
+        <section>
+          <h2>6. Service providers and disclosure</h2>
+          <p>Limited information may be handled by the following services to provide the functions above:</p>
+          <ul>
+            <li>Apple App Store / StoreKit, for products, trial eligibility, purchases, renewals, restoring purchases, and refunds;</li>
+            <li>network infrastructure providers that host the launch eligibility check and generate necessary security and operational logs; and</li>
+            <li>external services you choose to open, such as the accessory purchase link, system share sheet, or app-store review page.</li>
+          </ul>
+          <p>We require service providers processing information for us to use it only for agreed purposes and provide protection no less protective than this policy and applicable law require. We may also disclose information when required by law, necessary to protect users or the public, or needed to address legal claims. Otherwise, we do not provide your information to third parties for their independent marketing.</p>
+        </section>
+
+        <section>
+          <h2>7. Retention and deletion</h2>
+          <p>Local settings remain until you delete the relevant content in the app or uninstall it. Apple retains subscription records under its policies. Basic eligibility-service logs are kept only as long as necessary for security, troubleshooting, and legal obligations, then deleted or de-identified.</p>
+        </section>
+
+        <section>
+          <h2>8. Changes to this policy</h2>
+          <p>We may update this policy as the product, law, or our operations change. We will provide an in-app notice or another appropriate notice for material changes and revise this page accordingly. Please review the latest version before continuing to use PalPanel.</p>
+        </section>
+
+      </article>
+    </div>
+  </main>
+
+  <script>
+    (() => {
+      const buttons = document.querySelectorAll("[data-language]");
+      const localeNodes = document.querySelectorAll("[data-locale]");
+      const termsLink = document.querySelector("[data-document-link='terms']");
+      const titles = { zh: "隐私政策 · PalPanel", en: "Privacy Policy · PalPanel" };
+      const descriptions = {
+        zh: "PalPanel 隐私政策：了解应用如何处理本地设备配置、蓝牙与订阅信息。",
+        en: "PalPanel Privacy Policy: learn how the app handles local device settings, Bluetooth, and subscription information."
+      };
+
+      const applyLanguage = (language, updateUrl) => {
+        const isChinese = language === "zh";
+        document.documentElement.lang = isChinese ? "zh-CN" : "en";
+        document.title = titles[language];
+        document.querySelector("meta[name='description']").content = descriptions[language];
+        localeNodes.forEach((node) => { node.hidden = node.dataset.locale !== language; });
+        buttons.forEach((button) => {
+          button.setAttribute("aria-pressed", String(button.dataset.language === language));
+        });
+        termsLink.href = `terms.html?lang=${language}`;
+        document.querySelector(".document-nav").setAttribute("aria-label", isChinese ? "法律文件" : "Legal documents");
+
+        if (updateUrl) {
+          const url = new URL(window.location.href);
+          url.searchParams.set("lang", language);
+          history.replaceState(null, "", url);
+        }
+      };
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => applyLanguage(button.dataset.language, true));
+      });
+
+      const requested = new URLSearchParams(window.location.search).get("lang");
+      const initial = requested === "zh" || requested === "en"
+        ? requested
+        : (navigator.language.toLowerCase().startsWith("zh") ? "zh" : "en");
+      applyLanguage(initial, false);
+    })();
+  </script>
+</body>
+</html>

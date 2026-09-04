@@ -1,0 +1,600 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#3f1025">
+  <meta name="description" content="PalPanel 使用条款：了解应用使用、蓝牙红外发射器与 Premium 订阅规则。">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <title>使用条款 · PalPanel</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #fcfcfc;
+      --ink-soft: rgba(237, 221, 224, 0.88);
+      --ink-muted: rgba(237, 221, 224, 0.68);
+      --glass: rgba(15, 6, 12, 0.38);
+      --glass-strong: rgba(15, 6, 12, 0.58);
+      --line: rgba(255, 255, 255, 0.18);
+      --line-soft: rgba(255, 255, 255, 0.11);
+      --accent: #f0d7c9;
+      --accent-ink: #3f1025;
+      --radius-large: 22px;
+      --radius-medium: 16px;
+      --display: "Avenir Next", "SF Pro Display", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+      --body: "SF Pro Text", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      min-width: 320px;
+      background: #120d14;
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      color: var(--ink);
+      font-family: var(--body);
+      font-size: 15px;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      position: fixed;
+      z-index: -1;
+      inset: 0;
+      content: "";
+      background:
+        radial-gradient(120% 85% at 12% 96%, rgba(188, 91, 21, 0.85), transparent 55%),
+        radial-gradient(95% 75% at 88% 55%, rgba(114, 28, 66, 0.85), transparent 62%),
+        linear-gradient(205deg, #120d14, #400f26 52%, #822b2a);
+    }
+
+    a { color: inherit; }
+
+    button, a { -webkit-tap-highlight-color: transparent; }
+
+    button { font: inherit; }
+
+    [hidden] { display: none !important; }
+
+    .skip-link {
+      position: fixed;
+      z-index: 20;
+      top: 10px;
+      left: 10px;
+      padding: 8px 12px;
+      border-radius: 10px;
+      color: var(--accent-ink);
+      background: var(--ink);
+      transform: translateY(-160%);
+    }
+
+    .skip-link:focus { transform: translateY(0); }
+
+    .site-header {
+      position: sticky;
+      z-index: 10;
+      top: 0;
+      padding-top: env(safe-area-inset-top);
+      border-bottom: 1px solid transparent;
+      background: linear-gradient(to bottom, rgba(18, 13, 20, 0.78), rgba(18, 13, 20, 0.42));
+      backdrop-filter: blur(18px) saturate(130%);
+      -webkit-backdrop-filter: blur(18px) saturate(130%);
+    }
+
+    .header-inner,
+    main {
+      width: min(calc(100% - 40px), 760px);
+      margin-inline: auto;
+    }
+
+    .header-inner {
+      display: flex;
+      min-height: 70px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      color: var(--ink);
+      font-family: var(--display);
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      overflow: hidden;
+      flex: none;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 11px;
+      box-shadow: 0 8px 20px rgba(17, 5, 12, 0.3);
+    }
+
+    .brand-mark svg { display: block; width: 100%; height: 100%; }
+
+    .language-switch {
+      display: inline-flex;
+      padding: 3px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .language-switch button {
+      min-width: 47px;
+      min-height: 34px;
+      padding: 5px 12px;
+      border: 0;
+      border-radius: 999px;
+      color: var(--ink-muted);
+      background: transparent;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .language-switch button[aria-pressed="true"] {
+      color: var(--accent-ink);
+      background: var(--ink);
+      box-shadow: 0 3px 12px rgba(16, 6, 12, 0.22);
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--ink);
+      outline-offset: 3px;
+    }
+
+    main { padding: 58px 0 72px; }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2 { font-family: var(--display); }
+
+    h1 {
+      max-width: 12ch;
+      margin: 0;
+      font-size: clamp(36px, 7vw, 58px);
+      line-height: 1.12;
+      letter-spacing: -0.04em;
+    }
+
+    .lede {
+      max-width: 610px;
+      margin: 18px 0 0;
+      color: var(--ink-soft);
+      font-size: 16px;
+      line-height: 1.75;
+    }
+
+    .document-nav {
+      display: flex;
+      width: fit-content;
+      max-width: 100%;
+      gap: 4px;
+      margin-top: 28px;
+      padding: 4px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 30px rgba(16, 6, 12, 0.18);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .document-nav a,
+    .document-nav span[aria-current="page"] {
+      display: inline-flex;
+      min-height: 38px;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.2;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .document-nav a { color: var(--ink-soft); }
+
+    .document-nav a:hover { background: rgba(255, 255, 255, 0.1); }
+
+    .document-nav span[aria-current="page"] {
+      color: var(--accent-ink);
+      background: var(--ink);
+    }
+
+    .summary {
+      margin: 42px 0 10px;
+      padding: 20px 22px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-large);
+      color: var(--ink-soft);
+      background: var(--glass);
+      box-shadow: 0 12px 34px rgba(16, 6, 12, 0.22);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .summary strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--ink);
+      font-family: var(--display);
+      font-size: 15px;
+    }
+
+    .document { margin-top: 10px; }
+
+    .document section {
+      padding: 27px 2px 28px;
+      border-top: 1px solid var(--line-soft);
+    }
+
+    .document h2 {
+      margin: 0 0 9px;
+      color: #f9f5f0;
+      font-size: 18px;
+      line-height: 1.5;
+      letter-spacing: -0.015em;
+    }
+
+    .document p,
+    .document ul { margin: 0; color: var(--ink-soft); }
+
+    .document p + p,
+    .document p + ul,
+    .document ul + p { margin-top: 10px; }
+
+    .document ul { padding-left: 1.3em; }
+
+    .document li + li { margin-top: 6px; }
+
+    .document a {
+      color: var(--ink);
+      text-decoration-color: rgba(255, 255, 255, 0.42);
+      text-underline-offset: 3px;
+    }
+
+    .document a:hover { text-decoration-color: currentColor; }
+
+    @media (max-width: 520px) {
+      .header-inner,
+      main { width: min(calc(100% - 36px), 760px); }
+
+      .header-inner { min-height: 66px; }
+
+      main { padding-top: 42px; }
+
+      .brand-mark { width: 36px; height: 36px; }
+
+      .language-switch button { min-width: 44px; padding-inline: 10px; }
+
+      .document-nav { width: 100%; }
+
+      .document-nav a,
+      .document-nav span[aria-current="page"] { flex: 1; padding-inline: 12px; }
+
+      .summary { margin-top: 34px; padding: 18px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+
+    @media print {
+      :root { color-scheme: light; }
+      body { color: #171217; background: #fff; font-size: 11pt; }
+      body::before, .site-header, .document-nav { display: none; }
+      main { width: 100%; }
+      main { padding: 0; }
+      .eyebrow, h1, .summary strong, .document h2, .document a { color: #171217; }
+      .lede, .summary, .document p, .document ul { color: #484148; }
+      .summary { border-color: #d8d2d6; box-shadow: none; }
+      .document section { break-inside: avoid; border-color: #ded8dc; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#content">跳至正文 / Skip to content</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="./" aria-label="PalPanel">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 64 64" role="img">
+            <defs>
+              <linearGradient id="brand-bg" x1="1" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#24111d"/>
+                <stop offset="0.52" stop-color="#5e1732"/>
+                <stop offset="1" stop-color="#b45022"/>
+              </linearGradient>
+            </defs>
+            <rect width="64" height="64" fill="url(#brand-bg)"/>
+            <g transform="rotate(-14 28 34)">
+              <rect x="18" y="16" width="18" height="34" rx="9" fill="#fff"/>
+              <circle cx="27" cy="25" r="2.8" fill="#4a1428"/>
+              <path d="M24 33h6M24 38h6" stroke="#8f7280" stroke-width="2.5" stroke-linecap="round"/>
+            </g>
+            <path d="M42 23a13 13 0 0 1 0 17M49 18a21 21 0 0 1 0 27" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="3.5"/>
+          </svg>
+        </span>
+        <span>PalPanel</span>
+      </a>
+
+      <div class="language-switch" role="group" aria-label="语言 / Language">
+        <button type="button" data-language="zh" aria-pressed="true">中文</button>
+        <button type="button" data-language="en" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="content">
+    <div class="locale-content" data-locale="zh">
+      <p class="eyebrow">PalPanel · 法律文件</p>
+      <h1>使用条款</h1>
+      <p class="lede">这些条款说明你使用 PalPanel、兼容的蓝牙红外发射器及 Premium 订阅时适用的基本规则。</p>
+    </div>
+
+    <div class="locale-content" data-locale="en" hidden>
+      <p class="eyebrow">PalPanel · Legal</p>
+      <h1>Terms of Use</h1>
+      <p class="lede">These terms explain the basic rules that apply when you use PalPanel, a compatible Bluetooth IR blaster, and a Premium subscription.</p>
+    </div>
+
+    <nav class="document-nav" aria-label="法律文件">
+      <span aria-current="page">
+        <span data-locale="zh">使用条款</span>
+        <span data-locale="en" hidden>Terms</span>
+      </span>
+      <a href="privacy.html?lang=zh" data-document-link="privacy">
+        <span data-locale="zh">隐私政策</span>
+        <span data-locale="en" hidden>Privacy</span>
+      </a>
+    </nav>
+
+    <div class="locale-content" data-locale="zh">
+      <aside class="summary">
+        <strong>开始之前</strong>
+        使用 PalPanel 即表示你同意本条款。应用不需要注册账号；部分功能需要兼容的蓝牙红外发射器，Premium 功能需要有效的自动续订订阅。
+      </aside>
+
+      <article class="document">
+        <section>
+          <h2>1. 接受条款</h2>
+          <p>下载、访问或使用 PalPanel，即表示你已阅读、理解并同意本使用条款及<a href="privacy.html?lang=zh">《隐私政策》</a>。如果你不同意，请不要使用应用。若你代表组织使用 PalPanel，你确认自己有权使该组织受本条款约束。</p>
+        </section>
+
+        <section>
+          <h2>2. 使用资格</h2>
+          <p>你必须达到所在地法律规定的最低数字服务同意年龄；未达到该年龄的用户须由父母或法定监护人阅读并同意本条款。你应确保使用 PalPanel 不违反所在地适用法律或你与第三方之间的约定。</p>
+        </section>
+
+        <section>
+          <h2>3. PalPanel 提供的服务</h2>
+          <p>PalPanel 将手机或平板变成空调、电视、投影仪等 13 类家用设备的遥控面板。遥控指令以红外码形式通过单独获得的兼容蓝牙红外发射器发送；未连接外设时，面板无法向家电发送指令。</p>
+          <p>内置红外码库覆盖多个品牌与型号，但不同设备、固件和环境存在差异，我们不保证每一组红外码都能与你的设备兼容。</p>
+        </section>
+
+        <section>
+          <h2>4. 有限使用许可</h2>
+          <p>在你遵守本条款的前提下，我们授予你一项个人的、有限的、非独占、不可转让、不可再许可且可撤销的许可，仅用于在你拥有或控制的设备上非商业使用 PalPanel。应用、界面、品牌、代码和相关内容的所有权利仍归我们或相应权利人所有。</p>
+        </section>
+
+        <section>
+          <h2>5. 你的设备、房间与外设</h2>
+          <p>你对添加的设备、配置的房间和连接的外设负责。你应仅控制自己拥有、管理或已获明确授权操作的家电，并在发出指令前确认设备状态和周围环境安全。设备名、房间名、码组和面板状态按<a href="privacy.html?lang=zh">《隐私政策》</a>保存在本机。</p>
+          <p>兼容的蓝牙红外发射器由第三方制造和销售，除非购买页面另有明确说明，否则不包含在 PalPanel 下载或 Premium 订阅中。外设的购买、质量、保修与售后由相应卖方或制造商负责。</p>
+        </section>
+
+        <section>
+          <h2>6. 合理使用</h2>
+          <p>你不得：</p>
+          <ul>
+            <li>控制你无权操作的设备，干扰他人设备或危害人身、财产与公共安全；</li>
+            <li>将 PalPanel 用于违法、欺诈、滥用、骚扰或规避安全措施的目的；</li>
+            <li>破坏应用或服务运行，未经授权访问网络、系统或数据；</li>
+            <li>在适用法律不允许的范围内复制、出租、出售、再分发、反编译或逆向工程应用及协议；</li>
+            <li>移除应用中的版权、商标或其他权利声明。</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>7. 自动续订、取消与退款</h2>
+          <p>PalPanel Premium 提供周、月、年自动续订方案。实际价格、币种、试用或优惠资格以 Apple App Store 在确认购买前显示的信息为准，并可能因地区而异。</p>
+          <ul>
+            <li>确认购买后，费用由你的 Apple 账户扣取；</li>
+            <li>除非你在当前周期结束前至少 24 小时取消，否则订阅会自动续订；</li>
+            <li>可在系统的 Apple 账户订阅设置中取消；取消后，权益持续到已付费周期结束；</li>
+            <li>退款、计费争议和撤销购买按 Apple 的规则处理，并应通过 Apple 提交；</li>
+            <li>重装应用或更换设备后，可在 Premium 页面使用“恢复购买”同步同一 Apple 账户下的有效权益。</li>
+          </ul>
+          <p>订阅失效后，现有本地设备数据不会主动删除，但免费版限制会重新生效，受限类型的面板在重新订阅前无法使用。你依法享有的强制性消费者权利不受本条款限制。</p>
+        </section>
+
+        <section>
+          <h2>8. 第三方服务与链接</h2>
+          <p>PalPanel 会调用操作系统、Apple App Store / StoreKit 及蓝牙能力，并可能提供外设购买、分享或评分等外部入口。第三方服务由相应提供方独立运营，其可用性、内容、交易和数据处理适用其自身条款。链接不代表我们对第三方商品或服务作出保证。</p>
+        </section>
+
+        <section>
+          <h2>9. 更新、可用性与终止</h2>
+          <p>我们可能发布修复、安全更新或功能调整。为保障安全与兼容性，部分功能可能要求使用最新版本。受网络、平台政策、设备兼容性、维护或不可控事件影响，应用或个别功能可能暂时不可用。</p>
+          <p>你可以随时停止使用并卸载 PalPanel。如果你严重或反复违反本条款、造成安全风险或法律要求我们采取行动，我们可以在合理范围内限制相关服务访问。条款中按性质应持续有效的知识产权、责任限制和争议条款在停止使用后继续有效。</p>
+        </section>
+
+        <section>
+          <h2>10. 免责声明</h2>
+          <p>在适用法律允许的最大范围内，PalPanel 按“现状”和“可用”状态提供。我们不保证应用始终不中断、完全无误、安全，或适配每一台家电、红外码组和第三方外设。PalPanel 不能替代家电原装安全控制、紧急控制或人工检查；你应在安全环境中使用遥控功能。</p>
+        </section>
+
+        <section>
+          <h2>11. 责任限制</h2>
+          <p>在适用法律允许的最大范围内，我们不对因使用或无法使用 PalPanel 导致的间接、附带、特殊、惩罚性或后果性损失负责。我们的累计责任以引发主张前 12 个月内你为 PalPanel 支付的金额为上限。某些地区不允许上述排除或限制，此时相关限制仅在法律允许范围内适用。</p>
+        </section>
+
+        <section>
+          <h2>12. 条款更新与适用法律</h2>
+          <p>我们可能因产品、法律或运营变化更新本条款。重大变更会通过应用内提示或其他适当方式提前告知，并在本页同步更新相关内容。更新生效后继续使用即表示接受更新；如果你不同意，可以停止使用。</p>
+          <p>本条款受提供服务的经营者所在地法律管辖，但不排除你所在地不可放弃的消费者保护规则。发生争议时，双方应善意尝试协商解决；依法可向有管辖权的法院或消费者保护机构提出的权利不受影响。</p>
+        </section>
+      </article>
+    </div>
+
+    <div class="locale-content" data-locale="en" hidden>
+      <aside class="summary">
+        <strong>Before you begin</strong>
+        Using PalPanel means you agree to these terms. No account is required. Some features need a compatible Bluetooth IR blaster, and Premium features require an active auto-renewing subscription.
+      </aside>
+
+      <article class="document">
+        <section>
+          <h2>1. Acceptance</h2>
+          <p>By downloading, accessing, or using PalPanel, you confirm that you have read, understood, and agreed to these Terms of Use and the <a href="privacy.html?lang=en">Privacy Policy</a>. If you do not agree, do not use the app. If you use PalPanel for an organization, you confirm that you have authority to bind that organization to these terms.</p>
+        </section>
+
+        <section>
+          <h2>2. Eligibility</h2>
+          <p>You must be old enough to consent to digital services under the law where you live. If you are not, a parent or legal guardian must review and agree to these terms. You are responsible for ensuring that your use of PalPanel complies with applicable law and your agreements with others.</p>
+        </section>
+
+        <section>
+          <h2>3. What PalPanel provides</h2>
+          <p>PalPanel turns your phone or tablet into remote-control panels for 13 types of household devices, including air conditioners, televisions, and projectors. Commands are sent as IR codes through a separately obtained compatible Bluetooth IR blaster. Without the accessory connected, panels cannot send commands to appliances.</p>
+          <p>The built-in IR library covers many brands and models, but devices, firmware, and environments differ. We do not guarantee that every IR code set will be compatible with your equipment.</p>
+        </section>
+
+        <section>
+          <h2>4. Limited license</h2>
+          <p>Subject to these terms, we grant you a personal, limited, non-exclusive, non-transferable, non-sublicensable, revocable license to use PalPanel for non-commercial purposes on devices you own or control. All rights in the app, interface, branding, code, and related content remain with us or the relevant rights holders.</p>
+        </section>
+
+        <section>
+          <h2>5. Your devices, rooms, and accessories</h2>
+          <p>You are responsible for the devices you add, rooms you configure, and accessories you connect. Only control appliances you own, manage, or are expressly authorized to operate, and verify the device state and surrounding safety before sending a command. Device names, room names, code sets, and panel states are stored locally as described in the <a href="privacy.html?lang=en">Privacy Policy</a>.</p>
+          <p>Compatible Bluetooth IR blasters are manufactured and sold by third parties and, unless a purchase page expressly says otherwise, are not included with the PalPanel download or Premium subscription. The applicable seller or manufacturer is responsible for the accessory purchase, quality, warranty, and support.</p>
+        </section>
+
+        <section>
+          <h2>6. Acceptable use</h2>
+          <p>You must not:</p>
+          <ul>
+            <li>control equipment you are not authorized to operate, interfere with another person's devices, or endanger people, property, or public safety;</li>
+            <li>use PalPanel for unlawful, fraudulent, abusive, harassing, or security-circumvention purposes;</li>
+            <li>disrupt the app or services or gain unauthorized access to networks, systems, or data;</li>
+            <li>copy, rent, sell, redistribute, decompile, or reverse-engineer the app or protocols except where applicable law expressly permits it; or</li>
+            <li>remove copyright, trademark, or other rights notices from the app.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>7. Auto-renewal, cancellation, and refunds</h2>
+          <p>PalPanel Premium is available as auto-renewing weekly, monthly, and yearly plans. The price, currency, trial, and offer eligibility shown by Apple App Store before confirmation control and may vary by region.</p>
+          <ul>
+            <li>Payment is charged to your Apple account when you confirm the purchase.</li>
+            <li>Your subscription renews automatically unless you cancel at least 24 hours before the current period ends.</li>
+            <li>You can cancel in your Apple account subscription settings. Access continues until the paid period ends.</li>
+            <li>Apple's rules govern refunds, billing disputes, and purchase revocation; requests should be submitted to Apple.</li>
+            <li>After reinstalling the app or changing devices, use “Restore Purchase” on the Premium page to synchronize active access under the same Apple account.</li>
+          </ul>
+          <p>When a subscription ends, existing local device data is not proactively deleted, but free-version limits apply again and restricted panels remain unavailable until you resubscribe. Nothing in these terms limits mandatory consumer rights available to you by law.</p>
+        </section>
+
+        <section>
+          <h2>8. Third-party services and links</h2>
+          <p>PalPanel relies on operating-system features, Apple App Store / StoreKit, and Bluetooth, and may offer external links for accessory purchases, sharing, or reviews. Those services are independently operated and their availability, content, transactions, and information practices are governed by their own terms. A link does not mean we guarantee a third-party product or service.</p>
+        </section>
+
+        <section>
+          <h2>9. Updates, availability, and termination</h2>
+          <p>We may release fixes, security updates, or feature changes. Some functions may require the latest version for security and compatibility. The app or individual functions may be temporarily unavailable because of networks, platform policies, device compatibility, maintenance, or events beyond our control.</p>
+          <p>You may stop using and uninstall PalPanel at any time. If you seriously or repeatedly breach these terms, create a safety risk, or we are legally required to act, we may reasonably limit access to related services. Provisions that by their nature should survive—including intellectual-property, liability, and dispute provisions—remain effective after use ends.</p>
+        </section>
+
+        <section>
+          <h2>10. Disclaimers</h2>
+          <p>To the fullest extent permitted by law, PalPanel is provided “as is” and “as available.” We do not warrant that the app will always be uninterrupted, error-free, secure, or compatible with every appliance, IR code set, or third-party accessory. PalPanel is not a substitute for original appliance safety controls, emergency controls, or physical inspection. Use remote functions only in a safe environment.</p>
+        </section>
+
+        <section>
+          <h2>11. Limitation of liability</h2>
+          <p>To the fullest extent permitted by law, we are not liable for indirect, incidental, special, punitive, or consequential loss arising from use of or inability to use PalPanel. Our total liability is limited to the amount you paid for PalPanel in the 12 months before the claim arose. Some jurisdictions do not allow certain exclusions or limits, so they apply only to the extent permitted there.</p>
+        </section>
+
+        <section>
+          <h2>12. Changes and governing law</h2>
+          <p>We may update these terms as the product, law, or our operations change. We will provide an in-app notice or another appropriate advance notice for material changes and revise this page accordingly. Continued use after the update takes effect means you accept it; if you do not, you may stop using PalPanel.</p>
+          <p>These terms are governed by the law where the service operator is established, without excluding mandatory consumer protections where you live. If a dispute arises, both sides should try to resolve it in good faith. Your right to approach a court or consumer authority with jurisdiction is not affected.</p>
+        </section>
+      </article>
+    </div>
+  </main>
+
+  <script>
+    (() => {
+      const buttons = document.querySelectorAll("[data-language]");
+      const localeNodes = document.querySelectorAll("[data-locale]");
+      const privacyLink = document.querySelector("[data-document-link='privacy']");
+      const inlinePrivacyLinks = document.querySelectorAll(".document a[href^='privacy.html']");
+      const titles = { zh: "使用条款 · PalPanel", en: "Terms of Use · PalPanel" };
+      const descriptions = {
+        zh: "PalPanel 使用条款：了解应用使用、蓝牙红外发射器与 Premium 订阅规则。",
+        en: "PalPanel Terms of Use: learn the rules for the app, Bluetooth IR blasters, and Premium subscriptions."
+      };
+
+      const applyLanguage = (language, updateUrl) => {
+        const isChinese = language === "zh";
+        document.documentElement.lang = isChinese ? "zh-CN" : "en";
+        document.title = titles[language];
+        document.querySelector("meta[name='description']").content = descriptions[language];
+        localeNodes.forEach((node) => { node.hidden = node.dataset.locale !== language; });
+        buttons.forEach((button) => {
+          button.setAttribute("aria-pressed", String(button.dataset.language === language));
+        });
+        privacyLink.href = `privacy.html?lang=${language}`;
+        inlinePrivacyLinks.forEach((link) => { link.href = `privacy.html?lang=${language}`; });
+        document.querySelector(".document-nav").setAttribute("aria-label", isChinese ? "法律文件" : "Legal documents");
+
+        if (updateUrl) {
+          const url = new URL(window.location.href);
+          url.searchParams.set("lang", language);
+          history.replaceState(null, "", url);
+        }
+      };
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => applyLanguage(button.dataset.language, true));
+      });
+
+      const requested = new URLSearchParams(window.location.search).get("lang");
+      const initial = requested === "zh" || requested === "en"
+        ? requested
+        : (navigator.language.toLowerCase().startsWith("zh") ? "zh" : "en");
+      applyLanguage(initial, false);
+    })();
+  </script>
+</body>
+</html>
