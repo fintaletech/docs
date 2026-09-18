@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#3f1025">
+  <meta name="description" content="PalPanel 技术支持与联系邮箱。">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <title>技术支持 · PalPanel</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #fcfcfc;
+      --ink-soft: rgba(237, 221, 224, 0.88);
+      --ink-muted: rgba(237, 221, 224, 0.68);
+      --glass: rgba(15, 6, 12, 0.38);
+      --line: rgba(255, 255, 255, 0.18);
+      --line-soft: rgba(255, 255, 255, 0.11);
+      --accent: #f0d7c9;
+      --accent-ink: #3f1025;
+      --radius-large: 22px;
+      --display: "Avenir Next", "SF Pro Display", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+      --body: "SF Pro Text", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      min-width: 320px;
+      background: #120d14;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      color: var(--ink);
+      font-family: var(--body);
+      font-size: 15px;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      position: fixed;
+      z-index: -1;
+      inset: 0;
+      content: "";
+      background:
+        radial-gradient(120% 85% at 12% 96%, rgba(188, 91, 21, 0.85), transparent 55%),
+        radial-gradient(95% 75% at 88% 55%, rgba(114, 28, 66, 0.85), transparent 62%),
+        linear-gradient(205deg, #120d14, #400f26 52%, #822b2a);
+    }
+
+    a { color: inherit; }
+
+    button, a { -webkit-tap-highlight-color: transparent; }
+
+    button { font: inherit; }
+
+    [hidden] { display: none !important; }
+
+    .skip-link {
+      position: fixed;
+      z-index: 20;
+      top: 10px;
+      left: 10px;
+      padding: 8px 12px;
+      border-radius: 10px;
+      color: var(--accent-ink);
+      background: var(--ink);
+      transform: translateY(-160%);
+    }
+
+    .skip-link:focus { transform: translateY(0); }
+
+    .site-header {
+      position: sticky;
+      z-index: 10;
+      top: 0;
+      padding-top: env(safe-area-inset-top);
+      border-bottom: 1px solid transparent;
+      background: linear-gradient(to bottom, rgba(18, 13, 20, 0.78), rgba(18, 13, 20, 0.42));
+      backdrop-filter: blur(18px) saturate(130%);
+      -webkit-backdrop-filter: blur(18px) saturate(130%);
+    }
+
+    .header-inner,
+    main {
+      width: min(calc(100% - 40px), 760px);
+      margin-inline: auto;
+    }
+
+    .header-inner {
+      display: flex;
+      min-height: 70px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      color: var(--ink);
+      font-family: var(--display);
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      overflow: hidden;
+      flex: none;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 11px;
+      box-shadow: 0 8px 20px rgba(17, 5, 12, 0.3);
+    }
+
+    .brand-mark svg { display: block; width: 100%; height: 100%; }
+
+    .language-switch {
+      display: inline-flex;
+      padding: 3px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .language-switch button {
+      min-width: 47px;
+      min-height: 34px;
+      padding: 5px 12px;
+      border: 0;
+      border-radius: 999px;
+      color: var(--ink-muted);
+      background: transparent;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .language-switch button[aria-pressed="true"] {
+      color: var(--accent-ink);
+      background: var(--ink);
+      box-shadow: 0 3px 12px rgba(16, 6, 12, 0.22);
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--ink);
+      outline-offset: 3px;
+    }
+
+    main {
+      display: flex;
+      min-height: calc(100vh - 70px - env(safe-area-inset-top));
+      flex-direction: column;
+      justify-content: center;
+      padding: 54px 0 86px;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 12ch;
+      margin: 0;
+      font-family: var(--display);
+      font-size: clamp(36px, 7vw, 58px);
+      line-height: 1.12;
+      letter-spacing: -0.04em;
+    }
+
+    .lede {
+      max-width: 600px;
+      margin: 18px 0 0;
+      color: var(--ink-soft);
+      font-size: 16px;
+      line-height: 1.75;
+    }
+
+    .support-card {
+      margin-top: 38px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-large);
+      background: var(--glass);
+      box-shadow: 0 14px 40px rgba(16, 6, 12, 0.24);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .contact {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 22px;
+    }
+
+    .mail-icon {
+      display: grid;
+      width: 46px;
+      height: 46px;
+      flex: none;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.11);
+    }
+
+    .mail-icon svg { width: 22px; height: 22px; }
+
+    .contact-copy { min-width: 0; flex: 1; }
+
+    .contact-label {
+      display: block;
+      color: var(--ink-muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .email {
+      display: block;
+      margin-top: 2px;
+      color: var(--ink);
+      font-family: var(--display);
+      font-size: clamp(16px, 4vw, 20px);
+      font-weight: 700;
+      line-height: 1.45;
+      overflow-wrap: anywhere;
+      text-decoration-color: rgba(255, 255, 255, 0.42);
+      text-underline-offset: 4px;
+    }
+
+    .email:hover { text-decoration-color: currentColor; }
+
+    .send-button {
+      display: inline-flex;
+      min-height: 42px;
+      flex: none;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 18px;
+      border-radius: 999px;
+      color: var(--accent-ink);
+      background: var(--ink);
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.2;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(16, 6, 12, 0.22);
+    }
+
+    .send-button:hover { background: #f5e9e6; }
+
+    .response-time {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 18px 22px;
+      border-top: 1px solid var(--line-soft);
+      color: var(--ink-soft);
+      background: rgba(255, 255, 255, 0.04);
+      font-size: 14px;
+    }
+
+    .response-time svg {
+      width: 18px;
+      height: 18px;
+      margin-top: 4px;
+      flex: none;
+      color: var(--accent);
+    }
+
+    .response-time strong { color: var(--ink); }
+
+    @media (max-width: 600px) {
+      .header-inner,
+      main { width: min(calc(100% - 36px), 760px); }
+
+      .header-inner { min-height: 66px; }
+
+      .brand-mark { width: 36px; height: 36px; }
+
+      .language-switch button { min-width: 44px; padding-inline: 10px; }
+
+      main {
+        min-height: calc(100vh - 66px - env(safe-area-inset-top));
+        justify-content: flex-start;
+        padding: 42px 0 calc(56px + env(safe-area-inset-bottom));
+      }
+
+      .support-card { margin-top: 32px; }
+
+      .contact {
+        align-items: flex-start;
+        flex-wrap: wrap;
+        padding: 20px 18px;
+      }
+
+      .contact-copy { width: calc(100% - 62px); flex: none; }
+
+      .send-button { width: 100%; margin-top: 2px; }
+
+      .response-time { padding: 17px 18px; }
+    }
+
+    @media print {
+      :root { color-scheme: light; }
+      body { color: #171217; background: #fff; }
+      body::before, .site-header { display: none; }
+      main { width: 100%; min-height: 0; padding: 0; }
+      .eyebrow, h1, .email, .response-time strong { color: #171217; }
+      .lede, .contact-label, .response-time { color: #484148; }
+      .support-card { border-color: #d8d2d6; box-shadow: none; }
+      .send-button { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#content">跳至正文 / Skip to content</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="./" aria-label="PalPanel">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 64 64" role="img">
+            <defs>
+              <linearGradient id="brand-bg" x1="1" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#24111d"/>
+                <stop offset="0.52" stop-color="#5e1732"/>
+                <stop offset="1" stop-color="#b45022"/>
+              </linearGradient>
+            </defs>
+            <rect width="64" height="64" fill="url(#brand-bg)"/>
+            <g transform="rotate(-14 28 34)">
+              <rect x="18" y="16" width="18" height="34" rx="9" fill="#fff"/>
+              <circle cx="27" cy="25" r="2.8" fill="#4a1428"/>
+              <path d="M24 33h6M24 38h6" stroke="#8f7280" stroke-width="2.5" stroke-linecap="round"/>
+            </g>
+            <path d="M42 23a13 13 0 0 1 0 17M49 18a21 21 0 0 1 0 27" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="3.5"/>
+          </svg>
+        </span>
+        <span>PalPanel</span>
+      </a>
+
+      <div class="language-switch" role="group" aria-label="语言 / Language">
+        <button type="button" data-language="zh" aria-pressed="true">中文</button>
+        <button type="button" data-language="en" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="content">
+    <div class="locale-content" data-locale="zh">
+      <p class="eyebrow">PalPanel · 帮助</p>
+      <h1>技术支持</h1>
+      <p class="lede">如果你在使用 PalPanel 时遇到问题，可以通过电子邮件联系我们。</p>
+
+      <section class="support-card" aria-label="技术支持联系方式">
+        <div class="contact">
+          <span class="mail-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="5" width="18" height="14" rx="3"/>
+              <path d="m4 7 8 6 8-6"/>
+            </svg>
+          </span>
+          <div class="contact-copy">
+            <span class="contact-label">技术支持邮箱</span>
+            <a class="email" href="mailto:fintalesupport@icloud.com">fintalesupport@icloud.com</a>
+          </div>
+          <a class="send-button" href="mailto:fintalesupport@icloud.com?subject=PalPanel%20技术支持">发送邮件</a>
+        </div>
+        <div class="response-time">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 7v5l3 2"/>
+          </svg>
+          <span><strong>回复时间：</strong>我们通常会在收到邮件后的 7 个工作日内回复。</span>
+        </div>
+      </section>
+    </div>
+
+    <div class="locale-content" data-locale="en" hidden>
+      <p class="eyebrow">PalPanel · Help</p>
+      <h1>Technical Support</h1>
+      <p class="lede">If you have trouble using PalPanel, you can reach us by email.</p>
+
+      <section class="support-card" aria-label="Technical support contact">
+        <div class="contact">
+          <span class="mail-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="5" width="18" height="14" rx="3"/>
+              <path d="m4 7 8 6 8-6"/>
+            </svg>
+          </span>
+          <div class="contact-copy">
+            <span class="contact-label">Support email</span>
+            <a class="email" href="mailto:fintalesupport@icloud.com">fintalesupport@icloud.com</a>
+          </div>
+          <a class="send-button" href="mailto:fintalesupport@icloud.com?subject=PalPanel%20Support">Send email</a>
+        </div>
+        <div class="response-time">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 7v5l3 2"/>
+          </svg>
+          <span><strong>Response time:</strong> We usually reply within 7 business days after receiving your email.</span>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    (() => {
+      const buttons = document.querySelectorAll("[data-language]");
+      const localeNodes = document.querySelectorAll("[data-locale]");
+      const titles = { zh: "技术支持 · PalPanel", en: "Technical Support · PalPanel" };
+      const descriptions = {
+        zh: "PalPanel 技术支持与联系邮箱。",
+        en: "PalPanel technical support and contact email."
+      };
+
+      const applyLanguage = (language, updateUrl) => {
+        const isChinese = language === "zh";
+        document.documentElement.lang = isChinese ? "zh-CN" : "en";
+        document.title = titles[language];
+        document.querySelector("meta[name='description']").content = descriptions[language];
+        localeNodes.forEach((node) => { node.hidden = node.dataset.locale !== language; });
+        buttons.forEach((button) => {
+          button.setAttribute("aria-pressed", String(button.dataset.language === language));
+        });
+
+        if (updateUrl) {
+          const url = new URL(window.location.href);
+          url.searchParams.set("lang", language);
+          history.replaceState(null, "", url);
+        }
+      };
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => applyLanguage(button.dataset.language, true));
+      });
+
+      const requested = new URLSearchParams(window.location.search).get("lang");
+      const initial = requested === "zh" || requested === "en"
+        ? requested
+        : (navigator.language.toLowerCase().startsWith("zh") ? "zh" : "en");
+      applyLanguage(initial, false);
+    })();
+  </script>
+</body>
+</html>
